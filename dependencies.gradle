@@ -1,0 +1,22 @@
+project.ext.set("libraries", "")
+ext.metrics_version = "2.2.0";
+ext.metrics3_version = "3.0.2";
+
+project.libraries = [
+
+        guava                 : 'com.google.guava:guava:14.0.1',
+
+        metrics_core          : "com.yammer.metrics:metrics-core:$metrics_version",
+        metrics_graphite      : "com.yammer.metrics:metrics-graphite:$metrics_version",
+
+        metrics3_core          : "com.codahale.metrics:metrics-core:$metrics3_version",
+        metrics3_graphite     : "com.codahale.metrics:metrics-graphite:$metrics3_version",
+
+        anodot3: 'io.anodot:anodot-metrics:3.0.2',
+        anodot2: 'io.anodot:anodot-metrics2:2.2.0',
+
+        //Test libs
+        junit                 : 'junit:junit-dep:4.11',
+        hamcrestLibrary       : 'org.hamcrest:hamcrest-library:1.3',
+
+]

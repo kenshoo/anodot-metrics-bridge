@@ -1,0 +1,3 @@
+rootProject.name = 'anodot-metrics-bridge'
+include 'anodot-reporter', 'anodot-reporter2', 'anodot-reporter3'
+

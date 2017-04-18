@@ -1,0 +1,10 @@
+dependencies {
+    compile libraries.anodot3
+    compile libraries.metrics3_core
+    compile libraries.guava
+
+    compile project(':anodot-reporter')
+
+    testCompile libraries.junit
+    testCompile libraries.hamcrestLibrary
+}

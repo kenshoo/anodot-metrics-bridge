@@ -1,0 +1,52 @@
+apply from: 'idea.gradle'
+
+allprojects {
+
+    def BUILD_NUMBER = project.hasProperty('BUILD_NUMBER') ? "$BUILD_NUMBER" : 'undef'
+    apply plugin: 'maven'
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {
+            name "anodot-maven-repo-release"
+            url 'https://bitbucket.org/anodotengineering/anodot-maven-repo-release/raw/master'
+        }
+    }
+    buildscript {
+        repositories {
+            mavenLocal()
+            mavenCentral()
+        }
+    }
+
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+
+    group = 'com.kenshoo'
+    version = "0.1.$BUILD_NUMBER"
+
+    apply from: "${rootProject.projectDir}/dependencies.gradle"
+
+    compileJava {
+        options.compilerArgs << '-Werror'
+    }
+
+    compileTestJava {
+        options.compilerArgs << '-Werror'
+    }
+
+    project.test {
+        beforeTest { descriptor ->
+            logger.lifecycle('running ' + descriptor)
+        }
+    }
+}
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.4'
+}
+

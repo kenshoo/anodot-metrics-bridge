@@ -1,0 +1,7 @@
+dependencies {
+    compile libraries.guava
+
+    testCompile libraries.junit
+    testCompile libraries.hamcrestLibrary
+
+}
