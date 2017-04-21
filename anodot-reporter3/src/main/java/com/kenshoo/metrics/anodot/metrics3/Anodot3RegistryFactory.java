@@ -9,15 +9,15 @@ import java.util.Map;
 /**
  * Created by tzachz on 2/21/17
  */
-public class Anodot3RegistryFactory {
+class Anodot3RegistryFactory {
 
     private final Anodot3MetricNameConverter anodotMetricNameConverter;
 
-    public Anodot3RegistryFactory(Anodot3MetricNameConverter anodotMetricNameConverter) {
+    Anodot3RegistryFactory(Anodot3MetricNameConverter anodotMetricNameConverter) {
         this.anodotMetricNameConverter = anodotMetricNameConverter;
     }
 
-    public AnodotMetricRegistry anodot3Registry(MetricRegistry metricRegistry) {
+    AnodotMetricRegistry anodot3Registry(MetricRegistry metricRegistry) {
         final AnodotMetricRegistry anodotRegistry = new AnodotMetricRegistry();
         // 1. Add all existing metrics
         for (Map.Entry<String, Metric> e : metricRegistry.getMetrics().entrySet()) {

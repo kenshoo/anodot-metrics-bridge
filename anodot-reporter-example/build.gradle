@@ -1,0 +1,6 @@
+dependencies {
+    compile project(':anodot-reporter3')
+
+    testCompile libraries.junit
+    testCompile libraries.hamcrestLibrary
+}

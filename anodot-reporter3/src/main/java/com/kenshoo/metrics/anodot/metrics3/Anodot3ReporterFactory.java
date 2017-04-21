@@ -3,6 +3,8 @@ package com.kenshoo.metrics.anodot.metrics3;
 import com.anodot.metrics.Anodot;
 import com.anodot.metrics.AnodotMetricRegistry;
 import com.anodot.metrics.AnodotReporter;
+import com.codahale.metrics.MetricRegistry;
+import com.kenshoo.metrics.anodot.AnodotGlobalProperties;
 import com.kenshoo.metrics.anodot.AnodotReporterConfiguration;
 import com.kenshoo.metrics.anodot.AnodotReporterWrapper;
 
@@ -19,7 +21,14 @@ public class Anodot3ReporterFactory {
         this.conf = conf;
     }
 
-    public AnodotReporterWrapper anodot3Reporter(AnodotMetricRegistry anodotRegistry) {
+    public AnodotReporterWrapper anodot3Reporter(MetricRegistry metricRegistry, AnodotGlobalProperties globalProperties) {
+        final Anodot3MetricNameConverter converter = new Anodot3MetricNameConverter(globalProperties);
+        final Anodot3RegistryFactory registryFactory = new Anodot3RegistryFactory(converter);
+        final AnodotMetricRegistry anodotMetricRegistry = registryFactory.anodot3Registry(metricRegistry);
+        return anodot3Reporter(anodotMetricRegistry);
+    }
+
+    private AnodotReporterWrapper anodot3Reporter(AnodotMetricRegistry anodotRegistry) {
         final AnodotReporter reporter = AnodotReporter
                 .forRegistry(anodotRegistry)
                 .filter(new Anodot3NonZeroFilter())

@@ -13,15 +13,15 @@ import java.util.Map;
 /**
  * Created by tzachz on 2/21/17
  */
-public class Anodot2RegistryFactory {
+class Anodot2RegistryFactory {
 
     private Anodot2MetricNameConverter anodotMetricNameConverter;
 
-    public Anodot2RegistryFactory(Anodot2MetricNameConverter anodotMetricNameConverter) {
+    Anodot2RegistryFactory(Anodot2MetricNameConverter anodotMetricNameConverter) {
         this.anodotMetricNameConverter = anodotMetricNameConverter;
     }
 
-    public AnodotMetricRegistry anodot2Registry(MetricsRegistry metricsRegistry) {
+    AnodotMetricRegistry anodot2Registry(MetricsRegistry metricsRegistry) {
         final AnodotMetricRegistry anodotRegistry = new AnodotMetricRegistry();
 
         // 1. Add all existing metrics
