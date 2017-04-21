@@ -2,13 +2,3 @@ language: java
 jdk:
 - openjdk7
 script: "./gradlew clean test jar -PBUILD_NUMBER=$TRAVIS_BUILD_NUMBER"
-deploy:
-  provider: releases
-  api_key:
-    secure: uaJG9up48MBER7sHBkkqUGjcxbpiOpqe6KFfYx35qajoaCPHo0IRXQa7HKXA/SZTV83gjQZzbqhlG6XIubonV1pYSmZGZUUXwT8ocZRlS1JCxSWc0v6xIHGF6uo8LZfV5UNE7wNr/fWwbosJyS2KNiO7nxkKylqNKPmoblDVtkbEVOEKTAHIKFs8Xl6fMcGpDdjqc9Haw0SEeRmCTmI4PBWrRRjMTXmUxXXE3VuzFwfmzLbDMrvgyV3Lxl4txBSUwBEY6SddPyR56PeuAcSNF/HIokK2rX3eBw4mEJVnyr5PWtK4mjWvVH/lVTr6p4noYA6yWIv/07FVDs+hxeJLOmB3gxcMkKLOKIPrwkFX+q01Ga8USqxqSl//IW2y+Vu/B0/uIHrbOReZxeyHCr8W7v4GRBLp0sqjV8b2NdGUInJOF5B9NWDn18mkibIOjDzgo+InAuoL+VWhsF+BllZk76pd0oGpQfjBFpuXNI53q5KnCM2f+DsHZmRp7f/zGf3GClvPx/fMv78jNohpMHk5IYiHrTioaBurwIDfd3ir2IUzjRiJSYGDUxBKpf7bqUMYn7Ym8+FozArmFDa4zATnNo3VTbrU0gftvaCOBW+2itO8NIwh0pi0VRgZlrRLZkOmVtmzcSbnAOpO/nkP/yCXALb601ywpErY9FogB7EbM2w=
-  file:
-  - "anodot-reporter2/build/libs/anodot-reporter2-0.1.$TRAVIS_BUILD_NUMBER.jar"
-  - "anodot-reporter3/build/libs/anodot-reporter3-0.1.$TRAVIS_BUILD_NUMBER.jar"
-  skip_cleanup: true
-  on:
-    tags: true
