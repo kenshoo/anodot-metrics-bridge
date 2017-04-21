@@ -11,4 +11,4 @@ deploy:
   - "anodot-reporter3/build/libs/anodot-reporter3-0.1.$TRAVIS_BUILD_NUMBER.jar"
   skip_cleanup: true
   on:
-    repo: kenshoo/anodot-metrics-bridge
+    tags: true
