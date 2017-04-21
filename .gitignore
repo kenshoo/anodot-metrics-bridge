@@ -4,11 +4,6 @@
 build/
 .gradle/
 
-# Package Files #
-*.jar
-*.war
-*.ear
-
 # IntelliJ IDEA
 *.iml
 *.ipr
