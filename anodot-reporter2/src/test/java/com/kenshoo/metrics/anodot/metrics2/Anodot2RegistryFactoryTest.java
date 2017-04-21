@@ -1,6 +1,6 @@
 package com.kenshoo.metrics.anodot.metrics2;
 
-import com.kenshoo.metrics.anodot.AnodotGlobalProperties;
+import com.kenshoo.metrics.anodot.EmptyAnodotGlobalProperties;
 import com.yammer.metrics.core.AnodotMetricRegistry;
 import com.yammer.metrics.core.MetricName;
 import com.yammer.metrics.core.MetricsRegistry;
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
  */
 public class Anodot2RegistryFactoryTest {
 
-    private final Anodot2RegistryFactory factory = new Anodot2RegistryFactory(new Anodot2MetricNameConverter(new AnodotGlobalProperties()));
+    private final Anodot2RegistryFactory factory = new Anodot2RegistryFactory(new Anodot2MetricNameConverter(new EmptyAnodotGlobalProperties()));
     private final MetricsRegistry registry = new MetricsRegistry();
 
     @Test
