@@ -1,0 +1,6 @@
+language: java
+jdk:
+  - openjdk7
+
+script: "./gradlew clean test jar -PBUILD_NUMBER=$TRAVIS_BUILD_NUMBER"
+
