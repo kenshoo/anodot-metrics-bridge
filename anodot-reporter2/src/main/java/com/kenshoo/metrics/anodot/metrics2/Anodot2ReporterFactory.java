@@ -3,7 +3,6 @@ package com.kenshoo.metrics.anodot.metrics2;
 import com.kenshoo.metrics.anodot.AnodotGlobalProperties;
 import com.kenshoo.metrics.anodot.AnodotReporterConfiguration;
 import com.kenshoo.metrics.anodot.AnodotReporterWrapper;
-import com.kenshoo.metrics.anodot.EmptyAnodotGlobalProperties;
 import com.yammer.metrics.core.Anodot;
 import com.yammer.metrics.core.AnodotMetricRegistry;
 import com.yammer.metrics.core.AnodotReporter;
@@ -14,21 +13,17 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by tzachz on 2/21/17
  */
-public class Anodot2ReporterFactory {
+class Anodot2ReporterFactory {
 
     private final AnodotReporterConfiguration conf;
     private final AnodotGlobalProperties globalProperties;
 
-    public Anodot2ReporterFactory(AnodotReporterConfiguration conf) {
-        this(conf, new EmptyAnodotGlobalProperties());
-    }
-
-    public Anodot2ReporterFactory(AnodotReporterConfiguration conf, AnodotGlobalProperties globalProperties) {
+    Anodot2ReporterFactory(AnodotReporterConfiguration conf, AnodotGlobalProperties globalProperties) {
         this.conf = conf;
         this.globalProperties = globalProperties;
     }
 
-    public AnodotReporterWrapper anodot2Reporter(MetricsRegistry metricRegistry) {
+    AnodotReporterWrapper anodot2Reporter(MetricsRegistry metricRegistry) {
         final Anodot2MetricNameConverter converter = new Anodot2MetricNameConverter(globalProperties);
         final Anodot2RegistryFactory registryFactory = new Anodot2RegistryFactory(converter);
         final AnodotMetricRegistry anodotMetricRegistry = registryFactory.anodot2Registry(metricRegistry);

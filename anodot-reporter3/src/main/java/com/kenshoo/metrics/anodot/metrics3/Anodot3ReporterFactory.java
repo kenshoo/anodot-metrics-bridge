@@ -7,28 +7,23 @@ import com.codahale.metrics.MetricRegistry;
 import com.kenshoo.metrics.anodot.AnodotGlobalProperties;
 import com.kenshoo.metrics.anodot.AnodotReporterConfiguration;
 import com.kenshoo.metrics.anodot.AnodotReporterWrapper;
-import com.kenshoo.metrics.anodot.EmptyAnodotGlobalProperties;
 
 import java.util.concurrent.TimeUnit;
 
 /**
  * Created by tzachz on 2/21/17
  */
-public class Anodot3ReporterFactory {
+class Anodot3ReporterFactory {
 
     private final AnodotReporterConfiguration conf;
     private final AnodotGlobalProperties globalProperties;
 
-    public Anodot3ReporterFactory(AnodotReporterConfiguration conf) {
-        this(conf, new EmptyAnodotGlobalProperties());
-    }
-
-    public Anodot3ReporterFactory(AnodotReporterConfiguration conf, AnodotGlobalProperties globalProperties) {
+    Anodot3ReporterFactory(AnodotReporterConfiguration conf, AnodotGlobalProperties globalProperties) {
         this.conf = conf;
         this.globalProperties = globalProperties;
     }
 
-    public AnodotReporterWrapper anodot3Reporter(MetricRegistry metricRegistry) {
+    AnodotReporterWrapper anodot3Reporter(MetricRegistry metricRegistry) {
         final Anodot3MetricNameConverter converter = new Anodot3MetricNameConverter(globalProperties);
         final Anodot3RegistryFactory registryFactory = new Anodot3RegistryFactory(converter);
         final AnodotMetricRegistry anodotMetricRegistry = registryFactory.anodot3Registry(metricRegistry);
