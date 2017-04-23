@@ -4,7 +4,7 @@ import com.anodot.metrics.AnodotMetricRegistry;
 import com.codahale.metrics.Counter;
 import com.codahale.metrics.MetricRegistry;
 import com.google.common.base.Optional;
-import com.kenshoo.metrics.anodot.AnodotGlobalProperties;
+import com.kenshoo.metrics.anodot.EmptyAnodotGlobalProperties;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +25,7 @@ public class Anodot3RegistryFactoryTest {
     private static final String NAME = "theMetric";
 
     private final MetricRegistry metricRegistry = new MetricRegistry();
-    private final Anodot3MetricNameConverter anodotMetricNameConverter = new Anodot3MetricNameConverter(new AnodotGlobalProperties());
+    private final Anodot3MetricNameConverter anodotMetricNameConverter = new Anodot3MetricNameConverter(new EmptyAnodotGlobalProperties());
 
     private final Anodot3RegistryFactory factory = new Anodot3RegistryFactory(anodotMetricNameConverter);
 

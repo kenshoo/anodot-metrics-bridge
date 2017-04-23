@@ -1,10 +1,7 @@
 package com.kenshoo.metrics.anodot.example;
 
 import com.codahale.metrics.MetricRegistry;
-import com.kenshoo.metrics.anodot.AnodotGlobalProperties;
-import com.kenshoo.metrics.anodot.AnodotReporterConfiguration;
-import com.kenshoo.metrics.anodot.AnodotReporterWrapper;
-import com.kenshoo.metrics.anodot.DefaultAnodotReporterConfiguration;
+import com.kenshoo.metrics.anodot.*;
 import com.kenshoo.metrics.anodot.metrics3.Anodot3ReporterFactory;
 
 /**
@@ -16,17 +13,22 @@ import com.kenshoo.metrics.anodot.metrics3.Anodot3ReporterFactory;
 public class AnodotReporterFactoryExample {
 
     public static void main(String[] args) {
-        // We assume your app has an active MetricRegistry (e.g. within a Dropwizard app)
+        // We assume our app has an active MetricRegistry (e.g. within a Dropwizard app)
         final MetricRegistry metricRegistry = new MetricRegistry();
 
         // It might already contain some metrics:
         metricRegistry.counter("some.counter").inc();
 
-        // Create AnodotGlobalProperties object with your global properties;
-        // These properties will be added to each reported metric - so in Anodot you'll be able to slice by version / build / server
+        // Create an AnodotGlobalProperties object with your global properties;
+        // These properties will be added to each reported metric
+        //
+        // You can use the supplied DefaultAnodotGlobalProperties which adds version / build / server properties
         // Overloads for constructor with fewer arguments exist -
         // For example, if you want the server name to be inferred automatically
-        final AnodotGlobalProperties globalProperties = new AnodotGlobalProperties(
+        //
+        // Alternatively, you can create your own implementation of AnodotGlobalProperties with the properties of your choice,
+        // or use the EmptyAnodotGlobalProperties if you wish no global properties to be added
+        final AnodotGlobalProperties globalProperties = new DefaultAnodotGlobalProperties(
                 /* version */ "1.0.1",
                 /* build   */ "b2232",
                 /* server  */ "server1.prod");
@@ -38,11 +40,11 @@ public class AnodotReporterFactoryExample {
                 /* Anodot URI */ "https://api.anodot.com/api/v1/metrics");
 
         // Create the reporter factory based on the given configuration.
-        final Anodot3ReporterFactory reporterFactory = new Anodot3ReporterFactory(anodotConf);
+        final Anodot3ReporterFactory reporterFactory = new Anodot3ReporterFactory(anodotConf, globalProperties);
 
         // Create the reporter "wrapper" which provides a simple API for starting / stopping the reporting
         // All metrics added to metricsRegistry (before or after reporter was created) will be reported to Anodot
-        final AnodotReporterWrapper reporter = reporterFactory.anodot3Reporter(metricRegistry, globalProperties);
+        final AnodotReporterWrapper reporter = reporterFactory.anodot3Reporter(metricRegistry);
 
         reporter.start(); // will now start reporting
 
