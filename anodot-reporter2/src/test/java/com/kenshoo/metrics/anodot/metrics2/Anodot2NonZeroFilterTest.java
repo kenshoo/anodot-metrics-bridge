@@ -1,5 +1,7 @@
 package com.kenshoo.metrics.anodot.metrics2;
 
+import com.yammer.metrics.Metrics;
+import com.yammer.metrics.core.Counter;
 import com.yammer.metrics.core.Gauge;
 import com.yammer.metrics.core.spec.MetricName;
 import org.junit.Test;
@@ -30,6 +32,13 @@ public class Anodot2NonZeroFilterTest {
         assertThat(filter.matches(METRIC_NAME, gauge(1D)), is(true));
         assertThat(filter.matches(METRIC_NAME, gauge(1L)), is(true));
         assertThat(filter.matches(METRIC_NAME, gauge("1")), is(true));
+    }
+
+    @Test
+    public void nonZeroCounterNotFilteredOut() throws Exception {
+        final Counter counter = Metrics.newCounter(this.getClass(), "counter1");
+        counter.inc();
+        assertThat(filter.matches(METRIC_NAME, counter), is(true));
     }
 
     private <T> Gauge<T> gauge(final T value) {

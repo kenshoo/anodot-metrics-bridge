@@ -3,10 +3,7 @@ package com.kenshoo.metrics.anodot.metrics2;
 import com.kenshoo.metrics.anodot.AnodotGlobalProperties;
 import com.kenshoo.metrics.anodot.AnodotReporterConfiguration;
 import com.kenshoo.metrics.anodot.AnodotReporterWrapper;
-import com.yammer.metrics.core.Anodot;
-import com.yammer.metrics.core.AnodotMetricRegistry;
-import com.yammer.metrics.core.AnodotReporter;
-import com.yammer.metrics.core.MetricsRegistry;
+import com.yammer.metrics.core.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,10 +14,12 @@ class Anodot2ReporterFactory {
 
     private final AnodotReporterConfiguration conf;
     private final AnodotGlobalProperties globalProperties;
+    private final AnodotMetricFilter filter;
 
-    Anodot2ReporterFactory(AnodotReporterConfiguration conf, AnodotGlobalProperties globalProperties) {
+    Anodot2ReporterFactory(AnodotReporterConfiguration conf, AnodotGlobalProperties globalProperties, AnodotMetricFilter filter) {
         this.conf = conf;
         this.globalProperties = globalProperties;
+        this.filter = filter;
     }
 
     AnodotReporterWrapper anodot2Reporter(MetricsRegistry metricRegistry) {
@@ -32,7 +31,7 @@ class Anodot2ReporterFactory {
 
     private AnodotReporterWrapper anodot2Reporter(AnodotMetricRegistry anodot2Registry) {
         final AnodotReporter reporter = AnodotReporter.forRegistry(anodot2Registry)
-                .filter(new Anodot2NonZeroFilter())
+                .filter(filter)
                 .build(new Anodot(conf.getUri(), conf.getToken()));
 
         return new AnodotReporterWrapper() {
