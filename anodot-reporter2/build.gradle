@@ -7,4 +7,5 @@ dependencies {
 
     testCompile libraries.junit
     testCompile libraries.hamcrestLibrary
+    testCompile libraries.wiremock
 }

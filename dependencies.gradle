@@ -18,5 +18,6 @@ project.libraries = [
         //Test libs
         junit                 : 'junit:junit-dep:4.11',
         hamcrestLibrary       : 'org.hamcrest:hamcrest-library:1.3',
+        wiremock              : 'com.github.tomakehurst:wiremock:2.6.0',
 
 ]

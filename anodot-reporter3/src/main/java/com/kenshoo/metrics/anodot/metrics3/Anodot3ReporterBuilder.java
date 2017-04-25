@@ -1,7 +1,11 @@
 package com.kenshoo.metrics.anodot.metrics3;
 
 import com.anodot.metrics.AnodotMetricFilter;
+import com.anodot.metrics.spec.MetricName;
+import com.codahale.metrics.Metric;
 import com.codahale.metrics.MetricRegistry;
+import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.kenshoo.metrics.anodot.AnodotGlobalProperties;
 import com.kenshoo.metrics.anodot.AnodotReporterConfiguration;
@@ -9,6 +13,8 @@ import com.kenshoo.metrics.anodot.AnodotReporterWrapper;
 import com.kenshoo.metrics.anodot.EmptyAnodotGlobalProperties;
 
 import java.util.List;
+
+import static com.google.common.collect.FluentIterable.from;
 
 /**
  * Created by tzachz on 4/21/17
@@ -41,9 +47,25 @@ public class Anodot3ReporterBuilder {
     }
 
     public AnodotReporterWrapper build(MetricRegistry metricRegistry) {
-        return new Anodot3ReporterFactory(conf, globalProperties).anodot3Reporter(metricRegistry);
-
+        final AnodotMetricFilter filter = composeFiltersIntoOne();
+        return new Anodot3ReporterFactory(conf, globalProperties, filter).anodot3Reporter(metricRegistry);
     }
+
+    private AnodotMetricFilter composeFiltersIntoOne() {
+        final ImmutableList<AnodotMetricFilter> filtersImmutable = ImmutableList.copyOf(filters);
+        return new AnodotMetricFilter() {
+            @Override
+            public boolean matches(final MetricName metricName, final Metric metric) {
+                return from(filtersImmutable).allMatch(new Predicate<AnodotMetricFilter>() {
+                    @Override
+                    public boolean apply(AnodotMetricFilter input) {
+                        return input.matches(metricName, metric);
+                    }
+                });
+            }
+        };
+    }
+
     private Anodot3ReporterBuilder(AnodotReporterConfiguration conf) {
         this.conf = conf;
     }

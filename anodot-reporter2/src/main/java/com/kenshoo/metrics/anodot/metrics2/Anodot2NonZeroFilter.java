@@ -17,6 +17,8 @@ public class Anodot2NonZeroFilter implements AnodotMetricFilter {
             if (value instanceof Float) return (Float) value != 0;
             if (value instanceof Double) return (Double) value != 0;
             else return true;
+        } else if (metric instanceof Counter) {
+            return ((Counter)metric).count() != 0;
         } else if (metric instanceof Metered) {
             return ((Metered)metric).count() != 0;
         } else if (metric instanceof Histogram) {
