@@ -1,6 +1,6 @@
 project.ext.set("libraries", "")
-ext.metrics_version = "2.2.0";
-ext.metrics3_version = "3.0.2";
+ext.metrics_version = "2.2.0"
+ext.metrics3_version = "3.0.2"
 
 project.libraries = [
 

@@ -4,8 +4,6 @@ import com.anodot.metrics.AnodotMetricRegistry;
 import com.anodot.metrics.spec.MetricName;
 import com.codahale.metrics.*;
 
-import java.util.Map;
-
 /**
  * Created by tzachz on 2/21/17
  */
@@ -20,9 +18,7 @@ class Anodot3RegistryFactory {
     AnodotMetricRegistry anodot3Registry(MetricRegistry metricRegistry) {
         final AnodotMetricRegistry anodotRegistry = new AnodotMetricRegistry();
         // 1. Add all existing metrics
-        for (Map.Entry<String, Metric> e : metricRegistry.getMetrics().entrySet()) {
-            registerInAnodot(anodotRegistry, e.getKey(), e.getValue());
-        }
+        metricRegistry.getMetrics().forEach((key, value) -> registerInAnodot(anodotRegistry, key, value));
 
         // 2. Add listener to metricsRegistry, to keep anodot registry up to date
         metricRegistry.addListener(getListener(anodotRegistry));

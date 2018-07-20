@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.kenshoo.metrics.anodot.AnodotProperties.*;
+import static com.kenshoo.metrics.anodot.AnodotProperties.CLASS_PROPERTY;
+import static com.kenshoo.metrics.anodot.AnodotProperties.PACKAGE_PROPERTY;
 
 /**
  * Created by tzachz on 2/21/17
