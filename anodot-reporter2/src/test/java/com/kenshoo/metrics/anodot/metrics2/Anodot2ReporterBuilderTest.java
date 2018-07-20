@@ -6,8 +6,6 @@ import com.kenshoo.metrics.anodot.AnodotReporterWrapper;
 import com.kenshoo.metrics.anodot.DefaultAnodotReporterConfiguration;
 import com.yammer.metrics.Metrics;
 import com.yammer.metrics.core.AnodotMetricFilter;
-import com.yammer.metrics.core.Metric;
-import com.yammer.metrics.core.spec.MetricName;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -59,12 +57,7 @@ public class Anodot2ReporterBuilderTest {
     }
 
     private AnodotMetricFilter whatPropertyContains(final String substring) {
-        return new AnodotMetricFilter() {
-            @Override
-            public boolean matches(MetricName metricName, Metric metric) {
-                return metricName.getProperty("what").getValue().contains(substring);
-            }
-        };
+        return (metricName, metric) -> metricName.getProperty("what").getValue().contains(substring);
     }
 
     private void runReportCycle(AnodotReporterWrapper reporter) throws InterruptedException {

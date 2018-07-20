@@ -3,11 +3,11 @@ package com.kenshoo.metrics.anodot.metrics3;
 import com.anodot.metrics.AnodotMetricRegistry;
 import com.codahale.metrics.Counter;
 import com.codahale.metrics.MetricRegistry;
-import com.google.common.base.Optional;
 import com.kenshoo.metrics.anodot.EmptyAnodotGlobalProperties;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -47,17 +47,14 @@ public class Anodot3RegistryFactoryTest {
 
     @Test
     public void concurrentAccessToMetricIsSafe() throws Exception {
-        final AtomicReference<Optional<RuntimeException>> firstFailure = new AtomicReference<>(Optional.<RuntimeException>absent());
+        final AtomicReference<Optional<RuntimeException>> firstFailure = new AtomicReference<>(Optional.<RuntimeException>empty());
         final int threads = 20;
 
-        runInParallel(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    metricRegistry.counter(NAME).inc();
-                } catch (RuntimeException e) {
-                    firstFailure.compareAndSet(Optional.<RuntimeException>absent(), Optional.of(e));
-                }
+        runInParallel(() -> {
+            try {
+                metricRegistry.counter(NAME).inc();
+            } catch (RuntimeException e) {
+                firstFailure.compareAndSet(Optional.empty(), Optional.of(e));
             }
         }, threads);
 

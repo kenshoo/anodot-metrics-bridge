@@ -26,9 +26,7 @@ class Anodot2RegistryFactory {
 
         // 1. Add all existing metrics
         final Map<MetricName, Metric> anodotMetrics = Maps.newHashMap();
-        for (Map.Entry<com.yammer.metrics.core.MetricName, Metric> e : metricsRegistry.allMetrics().entrySet()) {
-            anodotMetrics.put(toAnodotName(e.getKey()), e.getValue());
-        }
+        metricsRegistry.allMetrics().forEach((key, value) -> anodotMetrics.put(toAnodotName(key), value));
         anodotRegistry.registerAll(anodotMetrics);
 
         // 2. Add listener to metricsRegistry, to keep anodot registry up to date

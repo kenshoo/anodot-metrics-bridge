@@ -33,12 +33,7 @@ public class Anodot3NonZeroFilterTest {
     }
 
     private <T> Gauge<T> gauge(final T value) {
-        return new Gauge<T>() {
-            @Override
-            public T getValue() {
-                return value;
-            }
-        };
+        return () -> value;
     }
 
 }
